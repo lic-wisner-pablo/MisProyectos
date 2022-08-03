@@ -1,0 +1,30 @@
+procedure IrHastaLaBolitaRojaHacia_(direcciónABuscar){
+        MoverAl_(direcciónABuscar)
+        while (hayLugarHaciaEl_(direcciónABuscar) && not hayBolitaDeColorRojo()){
+            MoverAl_(direcciónABuscar)
+    }
+}
+
+function hayBolitaDeColorRojo(){
+    return(hayBolitas(Rojo))
+}
+
+function hayLugarHaciaEl_(direcciónAmover) {
+    /*
+     PROPÓSITO: Indica si el cabezal puede moverse hacia la dirección *direcciónAMover*.
+     PRECONDICIONES: Ninguna.
+     TIPO: Booleano.
+     PARÁMETROS:
+        * direcciónAmover - dirección: describe la dirección de la siguiente celda.
+    */
+   return(puedeMover(direcciónAmover))
+}
+
+procedure MoverAl_(dirección){
+    /*
+    PROPÓSITO: mueve el cabezal en dirección *dirección*. 
+    PRECONDICIONES: Debe haber almenos una celda en dirección *dirección*.
+    PARÁMETROS: *dirección* - dirección: dirección hacia donde se moverá el cabezal.
+    */
+    Mover(dirección)
+}
