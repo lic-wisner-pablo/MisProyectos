@@ -1,0 +1,267 @@
+/*Escribir la función direcciónHaciaLaCualHayBolitasDe_ que dado un color describe la dirección hacia la cual hay bolitas de dicho color, bajo la suposición de que hay una única celda con bolitas de dicho color en la celda. La función realizada debe ser total.*/
+// Recorrido de búsqueda sobre direcciones
+// Tipo: Dirección
+// Recorrer direcciones y por cada dirección:
+    // ver si hayBolitas_Hacia_
+
+// Recorrido genérico de búsqueda:
+// Iniciar
+while (/*no encontré lo que busco*/) {
+    // --Procesar--
+    // Pasar
+}
+// Finalizar
+
+// Genérico sobre direcciones:
+// Recordar que voy por la primera dirección
+//direcciónActual := minDir()
+//while (/*quedan direcciones por recorrer*/
+//        direcciónActual /= maxDir()) {
+    // Procesar la dirección actual
+    // Pasar a la siguiente dirección
+//    direcciónActual := siguiente(direcciónActual)
+//}
+// Acá se cumple que direcciónActual = maxDir()
+// Procesar la dirección actual (la última)
+
+/*Escribir la función cantidadDeVecinasConBolitas que describe la cantidad de celdas vecinas que contienen bolitas (de cualquier color). En este caso el concepto de vecindad implica tanto las celdas ortogonales como las diagonales, es decir, las celdas hacia el N, E, S y O y también las diagonales hacia el NE, SE, SO y NO. La función realizada debe ser total.*/
+// Un recorrido de acumulación sobre las direcciones
+
+// Genérico sobre direcciones:
+// Recordar que voy por la primera dirección
+//direcciónActual := minDir()
+//while (/*quedan direcciones por recorrer*/
+//        direcciónActual /= maxDir()) {
+    // Procesar la dirección actual
+    // Pasar a la siguiente dirección
+//    direcciónActual := siguiente(direcciónActual)
+//}
+// Acá se cumple que direcciónActual = maxDir()
+// Procesar la dirección actual (la última)
+
+// Genérico de acumulación
+// Iniciar recorrido
+// Inicializar el acumulador
+while(/*queda por recorrer*/) {
+    // Actualizar el acumulador
+    // Pasar al siguiente elemento del recorrido
+}
+// Caso borde y return de el acumulador
+
+/*Escribir la función bordeMásCercano que describe la dirección hacia la cual se encuentra el borde que está más cerca (a menor cantidad de celdas).*/
+// Observación: Recorrido sobre direcciones calculando el borde más cercano
+// Recordar que el más cerca hasta ahora es el borde minDir()
+while (/*quedan direcciones por recorrer*/) {
+    // Recordar que el más cercano hasta ahora es:
+    //    el más cerca entre el actual y el que recordé hasta ahora
+}
+// el borde actual ES el más cercano
+
+
+/*Volver a escribir el procedimiento PonerUnaDeCadaColor que pone una bolita de cada color, estructurando la solución como un recorrido sobre colores.*/
+
+procedure PonerUnaDeCadaColor() {
+    colorActual := minColor()
+    while (colorActual /= maxColor()) {
+        Poner(colorActual)
+        colorActual := siguiente(colorActual)
+    }
+    // Acá se cumple que colorActual = Verde
+    Poner(colorActual)
+}
+
+program {
+    /*repeat (mínimoEntre_Y_(33,11)) {
+        Poner(Azul)
+    }*/
+    /*if (hayAlgunaBolita_(Azul)) {
+        Poner(Verde)
+    } else {
+        Poner(Rojo)
+    }*/
+    PonerUnaDeCadaColor()
+}
+
+// Genérico sobre colores:
+// Recordar que voy por el primer color (Azul)
+//colorActual := Azul
+//while (/*quedan colores por recorrer*/
+//        colorActual /= Verde) {
+    // Procesar el color actual
+    // Pasar al siguiente color
+//    colorActual := siguiente(colorActual)
+//}
+// Acá se cumple que colorActual = Verde
+// Procesar el color actual (Verde)
+
+//function cantidadDeCeldasConBolitasDeColor_(color) {
+    /*
+    Propósito: Describir la cantidad de celdas del tablero que tienen bolitas del color dado.
+    Precondiciones: Ninguna.
+    Parámetros: Tarea
+    Tipo: Número.
+    Observaciones: Recorrido de acumulación sobre el tablero por celdas contando las celdas que tengan bolitas del color dado.
+    */
+    /*IrAPrimeraCeldaEnUnRecorridoAl_Y_(Norte, Este)
+    // Inicializar contador
+    cantidadDeCeldas := 0
+    while (not esFinalDeRecorrido...) {
+        // Actualizar el contador (sumar lo que tenga que contar)
+        cantidadDeCeldas := cantidadDeCeldas +
+            unoSiHayBolitas_CeroSiNo(color)
+        IrASiguienteCelda...
+    }*/
+    // Caso borde y retornar
+//}
+
+function unoSiHayBolitas_CeroSiNo(color) {
+    return (choose 1 when (hayBolitas(color))
+                    0 otherwise)
+}
+
+function nroBolitas_EnLaFilaActual(color) {
+    /*
+    Propósito: Describir la cantidad de bolitas del color *color* en la fila actual.
+    Precondiciones: Ninguna.
+    Parámetros:
+    * color - Color: color de las bolitas a describir su cantidad en la fila actual.
+    Tipo: Número.
+    Observaciones: Es un recorrido de acumulación sobre una fila contando las bolitas que hay en ella.
+    */
+    // Caso borde al final:
+    IrAlBorde(Oeste)
+    cantidadDeBolitas := 0
+    while(puedeMover(Este)) {
+        cantidadDeBolitas := nroBolitas(color) + cantidadDeBolitas
+        Mover(Este)
+    }
+    return (nroBolitas(color) + cantidadDeBolitas)
+    // Caso borde al principio:
+    /*IrAlBorde(Oeste)
+    cantidadDeBolitas := nroBolitas(color)
+    while(puedeMover(Este)) {
+        Mover(Este)
+        cantidadDeBolitas := nroBolitas(color) + cantidadDeBolitas
+    }
+    return (cantidadDeBolitas)*/
+}
+
+function mínimoEntre_Y_(unNúmero, otroNúmero) {
+    /*
+    Propósito: Describir el menor número entre *unNúmero* y *otroNúmero*.
+    Precondiciones: Ninguna.
+    Parámetros:
+    * unNúmero - Número: Uno de los números a comparar
+    * otroNúmero - Número: El otro de los números a comparar
+    Tipo: Número.
+    */
+    return (choose unNúmero when (unNúmero < otroNúmero)
+                    otroNúmero otherwise)
+}
+
+/*procedure Poner_YSacar_(colorAPoner, colorASacar)
+
+
+if (CONDICIÓN 1) {
+    COMANDO 1
+} else if (CONDICIÓN 2) {
+    COMANDO 2
+}
+
+choose EXPRESIÓN 1 when (CONDICIÓN 1)
+        EXPRESIÓN 2 when (CONDICIÓN 2)
+
+"si el número es mayor a cero describe verde, caso contrario rojo"
+"describe verde si el número es mayor a cero, caso contrario rojo"
+"elegir verde cuando el número es mayor a cero y rojo en otro caso"
+choose Verde when (número > 0) Rojo otherwise*/
+
+function caprichosa(número) {
+    /*
+    Propósito: Describe el color Verde si el número dado es positivo y describe Rojo si es negativo.
+    Precondición: El número es distinto de cero.
+    Tipo: Color
+    */
+    return( choose Verde when (número > 0)
+                    Rojo otherwise
+        )
+}
+
+function hayAlgunaBolita_(color) {
+    /*
+    Propósito: Indicar si hay alguna bolita del color *color* en el tablero.
+    Precondiciones: Ninguna.
+    Parámetros: Tarea.
+    Tipo: Booleano.
+    Observaciones: Recorrido de búsqueda sobre el tablero por celdas buscando alguna celda que tenga bolitas del color dado.
+    */
+    /*IrAPrimeraCeldaEnUnRecorridoAl_Y_(Norte, Este)
+    while(haySiguienteCeldaEnUnRecorridoAl_Y_(Norte, Este)
+        && not hayBolitas(color)) {
+            IrASiguienteCeldaEnUnRecorridoAl_Y_(Norte, Este)
+    }
+    return (hayBolitas(color))*/
+    /* Otra opción
+    Observaciones: Recorrido de búsqueda sobre el tablero por columnas buscando alguna celda que tenga bolitas del color dado.
+    */
+    IrAlBorde(Oeste)
+    while (puedeMover(Este) &&
+        not hayBolitas_EnLaColumnaActual(color)) {
+            Mover(Este)
+    }
+    return (hayBolitas_EnLaColumnaActual(color))
+}
+
+function hayBolitas_EnLaColumnaActual(color) {
+    IrAlBorde(Sur)
+    while(puedeMover(Norte) && not hayBolitas(color)) {
+        Mover(Norte)
+    }
+    return (hayBolitas(color))
+}
+
+function hayBolitas_Hacia_(color, dirección) {
+    /*
+    Propósito: Indicar si en alguna de las celdas en la dirección *dirección* desde la celda actual hay bolitas del color *color*.
+    Precondiciones: Ninguna.
+    Parámetros:
+    * color - Color: el color de bolitas a indicar si hay.
+    * dirección - Dirección: la dirección hacia la cual se encuentra la celda en la que se indica si hay bolitas.
+    Tipo: Booleano.
+    Observación: Es un recorrido de búsqueda sobre una fila o una columna desde la celda actual buscando una celda con bolitas del color dado.
+    */
+    while (puedeMover(dirección) &&
+            not tieneBolitas_Al_(color, dirección)) {
+        Mover(dirección)
+    }
+    return (hayBolitas_Al_(color, dirección))
+}
+
+function hayBolitas_Al_(color, dirección) {
+    /*
+    Propósito: Indicar si hay una celda lindante en la dirección *dirección* a la celda actual y si esta tiene bolitas del color *color*.
+    Precondiciones: Ninguna.
+    Parámetros:
+    * color - Color: el color de bolitas a indicar si hay.
+    * dirección - Dirección: la dirección hacia la cual se encuentra la celda en la que se indica si hay bolitas.
+    Tipo: Booleano.
+    */
+    return (        puedeMover(dirección)
+            && tieneBolitas_Al_(color, dirección))
+}
+
+function tieneBolitas_Al_(color, dirección) {
+    /*
+    Propósito: Indicar si hay bolitas de color *color* en la celda lindante en la dirección *dirección* a la celda actual.
+    Precondiciones: Hay al menos una celda lindante en la dirección *dirección* desde la celda actual.
+    Parámetros:
+    * color - Color: el color de bolitas a indicar si hay.
+    * dirección - Dirección: la dirección hacia la cual se encuentra la celda en la que se indica si hay bolitas.
+    Tipo: Booleano.
+    */
+    Mover(dirección)
+    return (hayBolitas(color))
+}
+
+
+
