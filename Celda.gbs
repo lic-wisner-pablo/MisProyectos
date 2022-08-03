@@ -1,0 +1,104 @@
+type Celda is record {
+  /*
+  PROPÓSITO: Modelar una celda del tablero
+  INV.REP.: Los números son todos >= 0
+  */
+  field cantidadDeAzules // tipo: Número
+  field cantidadDeNegras // tipo: Número
+  field cantidadDeRojas // tipo: Número
+  field cantidadDeVerdes // tipo: Número
+}
+
+program {
+    EscribirEnCelda_(
+      celdaCon_Rojas_Azules_VerdesY_Negras(
+    1,2,3,4))
+}
+
+function celdaCon_Rojas_Azules_VerdesY_Negras(
+  cantRojas, cantAzules, cantVerdes, cantNegras) {
+  // Prec: Los números dados deben ser >= 0
+  return(
+    Celda(
+      cantidadDeAzules <- cantAzules,
+      cantidadDeNegras <- cantNegras,
+      cantidadDeRojas  <- cantRojas,
+      cantidadDeVerdes <- cantVerdes
+    )
+  )
+}
+
+function celdaActual() {
+  /*
+  Prop: Describir la celda actual.
+  Prec: Ninguna.
+  Tipo: Celda.
+  */
+  return(
+    Celda(
+      cantidadDeAzules <- nroBolitas(Azul),
+      cantidadDeNegras <- nroBolitas(Negro),
+      cantidadDeRojas  <- nroBolitas(Rojo),
+      cantidadDeVerdes <- nroBolitas(Verde)
+    )
+  )
+}
+
+procedure EscribirEnCelda_(celda) {
+  /*
+  Prop: Poner la información de la celda dada en la celda actual.
+  Prec: Ninguna.
+  Param: celda Celda
+  */
+  VaciarCelda()
+  Poner_DeColor_(cantidadDeAzules(celda), Azul)
+  Poner_DeColor_(cantidadDeRojas(celda), Rojo)
+  Poner_DeColor_(cantidadDeNegras(celda), Negro)
+  Poner_DeColor_(cantidadDeVerdes(celda), Verde)
+}
+
+procedure VaciarCelda() {
+  Sacar_DeColor_(nroBolitas(Rojo), Rojo)
+  Sacar_DeColor_(nroBolitas(Azul), Azul)
+  Sacar_DeColor_(nroBolitas(Verde), Verde)
+  Sacar_DeColor_(nroBolitas(Negro), Negro)
+}
+
+procedure Sacar_DeColor_(a,b) {
+  repeat (a) {Sacar(b)}
+}
+
+procedure Poner_DeColor_(a,b) {
+  repeat (a) {Poner(b)}
+}
+
+function celdaVacía() {
+  /*
+  Prop: Describir una celda vacía.
+  Prec: Ninguna.
+  Tipo: Celda.
+  */
+  return(
+    Celda(
+      cantidadDeAzules <- 0,
+      cantidadDeNegras <- 0,
+      cantidadDeRojas  <- 0,
+      cantidadDeVerdes <- 0
+    )
+  )
+}
+
+function esCeldaVacía_(celda) {
+  /*
+  Prop: Indicar si la celda dada está vacía
+  Prec: Ninguna.
+  Param: celda Celda
+  Tipo: Booleano
+  */
+  return (
+    cantidadDeAzules(celda) == 0 &&
+    cantidadDeRojas(celda) == 0 &&
+    cantidadDeNegras(celda) == 0 &&
+    cantidadDeVerdes(celda) == 0
+  )
+}
