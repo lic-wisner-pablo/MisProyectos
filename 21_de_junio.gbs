@@ -1,0 +1,239 @@
+function personaNacidaDe_(madre) {
+  /*
+    Prop: Describe a una persona nacida de la persona *madre*.
+    Prec: Ninguna.
+    Param: madre : Persona
+    Tipo: Persona
+  */
+  return (
+    /*Persona(
+      dni <- sinAsignar(),
+      domicilio <- domicilio(madre),
+      esDonante <- False
+    )*/
+    Persona(madre |
+      dni <- sinAsignar(),
+      esDonante <- False
+    )
+  )
+}
+
+function sinAsignar() {
+  return ("")
+}
+
+type Persona is record {
+  /*
+    Prop: Modelar una persona
+    INV. REP:
+    * el dni está compuesto sólo por dígitos
+  */
+  field dni       // String
+  field domicilio // String
+  field esDonante // Booleano
+}
+
+program {
+  /*return (laCelda_TrasPonerUnaBolitaRoja(celdaActual()))
+  return (ganaElEnvido_A_(
+    jugadorCon_Y_(laCarta_De_(5,Espadas),laCarta_De_(3,Espadas)),
+    jugadorCon_Y_(laCarta_De_(3,Oros),laCarta_De_(5,Oros))
+  ))*/
+}
+
+type Celda is record {
+  /*
+  PROPÓSITO: Modelar una celda del tablero
+  INV.REP.: Los números son todos >=0
+  */
+  field cantidadDeAzules // tipo: Número
+  field cantidadDeNegras // tipo: Número
+  field cantidadDeRojas // tipo: Número
+  field cantidadDeVerdes // tipo: Número
+}
+
+function unaDeCadaColor() {
+  return(
+    Celda(
+      cantidadDeAzules <- 1,
+      cantidadDeNegras <- 1,
+      cantidadDeRojas  <- 1,
+      cantidadDeVerdes <- 1
+    )
+  )
+}
+
+function celdaActual() {
+  // Param: No tiene (usa el tablero)
+  // Tipo: Celda
+  return(
+    Celda(
+      cantidadDeAzules <- nroBolitas(Azul),
+      cantidadDeNegras <- nroBolitas(Negro),
+      cantidadDeRojas  <- nroBolitas(Rojo),
+      cantidadDeVerdes <- nroBolitas(Verde)
+    )
+  )
+}
+
+/*nroBolitas(color, tablero)
+nroBolitas_EnCelda_(color, celda)*/
+
+/*procedure Poner_En_(color, celda) {
+  Poner()
+}
+
+function laCelda_TrasPoner_(celda, color) {
+  
+}*/
+
+// Modificadora
+
+
+function laCelda_TrasPonerUnaBolitaRoja(celda) {
+  /*
+    Param: celda : Celda
+    Tipo: Celda
+  */
+  return(
+    // Constructora
+    // "crear una celda con ... azules, ... verdes, ..."
+    /*Celda(
+      cantidadDeAzules <- cantidadDeAzules(celda),
+      cantidadDeNegras <- cantidadDeNegras(celda),
+      cantidadDeRojas  <- cantidadDeRojas(celda) + 1,
+      cantidadDeVerdes <- cantidadDeVerdes(celda)
+    )*/
+    // Modificadora
+    // "crear una celda igual a *celda* pero cambiando la cantidad de rojas"
+    Celda(celda |
+      cantidadDeRojas  <- cantidadDeRojas(celda) + 1
+    )
+  )
+}
+/*
+  Describe la celda resultante de poner una bolita en la celda dada.
+*/
+
+
+/*R G B(0-255)x3
+Rojo = (255,0,0)
+Amarillo = (155,155,0)
+
+type Color is record {
+  // INV. los números están entre 0 y 255
+  field cantidadRojo  {} // Número
+  field cantidadVerde {} // Número
+  field cantidadAzul  {} // Número
+}
+
+function rojo() {
+  return
+   Color(cantidadRojo <- 255, cantidadVerde <- 0, cantidadAzul <- 0)
+}*/
+
+/*Dos cartas del mismo palo:
+  Envido = 20 + los números de esas dos cartas
+                (salvo las figuras que suman 0)
+  5 de espadas y 3 de espadas = 20 + 5 + 3 = 28
+  5 de espadas y 11 de espadas = 20 + 5 + 0 = 25
+*/
+type Carta is record {
+    field número
+    field palo
+}
+
+type Palo is variant {
+    case Espadas {}
+    case Oros {}
+    case Copas {}
+    case Bastos {}
+}
+
+function valorParaEnvidoDe_(carta) {
+  /*
+  Param: carta : Carta
+  Tipo: Número
+  */
+  return (choose
+    0 when (esFigura_(carta)) // 0
+    número(carta) otherwise // 1,2,3,...,7
+  )
+}
+
+
+function ganaElEnvido_A_(jugador1, jugador2) {
+  /*
+  Prop: Indica si el jugador 1 le gana al jugador 2 en el envido.
+  Prec: Ninguna.
+  Param: Son de tipo Jugador
+  Tipo: Booleano
+  */
+  return (
+  sumaParaElEnvidoCon_Y_(primeraCarta(jugador1), segundaCarta(jugador1))
+    >
+  sumaParaElEnvidoCon_Y_(primeraCarta(jugador2), segundaCarta(jugador2))
+  )
+}
+
+function jugadorCon_Y_(c1, c2) {
+  return (Jugador(primeraCarta <- c1, segundaCarta <- c2))
+}
+
+type Jugador is record {
+  /*
+    Prop: Modelar un jugador de truco con 2 cartas
+  */
+  field primeraCarta
+  field segundaCarta
+}
+
+function esFigura_(carta) {
+  return (número(carta) >= 10 && número(carta) <= 12)
+}
+
+function laCarta_De_(número,palo) {
+  return (Carta(número <- número, palo <- palo))
+}
+
+function sumaParaElEnvidoCon_Y_(carta1, carta2) {
+  /*
+    Prop: Describe el puntaje para el envido con las cartas dadas.
+    Prec: Ninguna.
+    Param:
+    * carta1 : Carta
+    * carta2 : Carta
+    Tipo: Número
+  */
+  return(
+    choose valorParaEnvidoDe_(carta1) + valorParaEnvidoDe_(carta2) + 20
+      when(sonDelMismoPalo_Y_(carta1, carta2))
+    mayorValorEntre_Y_(carta1, carta2) otherwise
+  )
+}
+
+function sonDelMismoPalo_Y_(c1,c2) {
+  return (palo(c1)==palo(c2))
+}
+
+function mayorValorEntre_Y_(c1, c2) {
+  return (choose
+    valorParaEnvidoDe_(c1) when
+    (valorParaEnvidoDe_(c1) > valorParaEnvidoDe_(c2))
+  valorParaEnvidoDe_(c2) otherwise)
+} 
+
+/*
+  primeraCarta      segundaCarta    Envido
+  1 de Esp.         5 de Esp.       26 (20 + 1 + 5)
+  10 de Oro         12 de Oro       20 (20 + 0 + 0)
+  3 de Copa         7 de Bast.      7 (pq es la más alta)
+  10 Copa           12 de Oro       0 (pq es la más alta, y ambas valen 0)
+  
+  si son del mismo palo,
+    20 + valor_1 + valor_2
+  si no,
+    el número de la más alta
+*/
+
+
