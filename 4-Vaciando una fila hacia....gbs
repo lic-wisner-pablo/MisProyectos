@@ -1,0 +1,46 @@
+
+procedure VaciarFilaDe_HaciaEl_(color, dirección) {
+    /*
+     PROPÓSITO: que quita todas las bolitas del color dado 
+        por el parámetro *color* en dirección *dirección*
+        de la fila actual.
+     PRECONDICIONES: 
+        
+     PARÁMETROS: *color* - color: color de las bolitas a sacar.
+    */
+    IniciarElRecorrido_(dirección)
+    while (hayLugarHaciaEl_(dirección)) {
+        SacarTodasLasDeColor_(color)
+        Mover(dirección)
+    }
+    SacarTodasLasDeColor__(color)
+}
+
+procedure IniciarElRecorrido_(dirección) {
+    /*
+     PROPÓSITO: Pociciona el cabezal en el borde oeste.
+     PRECONDICIONES: Ningua.
+    */
+    IrAlBorde(opuesto(dirección)) 
+}
+
+procedure SacarTodasLasDeColor__(colorASacar) {
+    /*
+     PROPÓSITO: quita todas bolitas del color *color* 
+        de la celda actual.
+     PRECONDICIONES: 
+        
+     PARÁMETROS: *color* - color: color de la bolita a sacar.
+    */
+    while (hayBolitas(colorASacar)) {
+        Sacar(colorASacar)
+    }
+}
+
+function hayLugarHaciaEl_(direcciónAmover) {
+    /*
+     PROPÓSITO: Indica si el cabezal puede moverse hacia el Norte.
+     PRECONDICIONES: Ninguna.
+    */
+   return(puedeMover(direcciónAmover))
+}
