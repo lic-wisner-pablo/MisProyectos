@@ -1,0 +1,17 @@
+procedure ComerPiezaNegraConTorreHacia_(direcciónAComer){
+    /*
+    PROPÓSITO: Come la pieza negra más en dirección * direcciónAComer* próxima a la celda actual
+               hacia la dirección dada, dejando la torre en dicha celda.
+    PRECONDICIONES:
+        * Debe haber una torre blanca en la celda actual.
+        * debe haber una celda en dirección *direcciónAComer*, con una pieza negra.
+    PARÁMETROS: 
+        * direcciónAComer: Dirección - Representa la dirección hacia la cual se va a comer la pieza negra.
+    OBSERVACIÓN:
+        Recorrido de búsqueda: busca una pieza negra en dirección *direcciónAComer* y la come.
+    */
+MoverTorreBlancaHacia_(direcciónAMover)
+while (hayUnaPiezaNegra()){
+    ComerPiezaNegra()
+    }
+}
