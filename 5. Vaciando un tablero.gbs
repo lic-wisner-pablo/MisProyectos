@@ -1,0 +1,87 @@
+procedure VaciarTableroDe_(color){
+    /*
+     PROPÓSITO: que quita todas las bolitas del color dado 
+        por el parámetro *color* en dirección *dirección*
+        de la fila actual.
+     PRECONDICIONES: 
+        
+     PARÁMETROS: *color* - color: color de las bolitas a sacar.
+    */
+    
+    VaciarFilaDe_HaciaEl_(color, Este)
+    while (haySiguienteFilaAl_(Norte)){
+        MoverAl_(Norte)
+        VaciarFilaDe_HaciaEl_(color, Este)
+    }
+}
+
+
+procedure MoverAl_(dirección){
+    /*
+    PROPÓSITO: mueve el cabezal en dirección *dirección*. 
+    PRECONDICIONES: Debe haber almenos una celda en dirección *dirección*.
+    PARÁMETROS: *dirección* - dirección: dirección hacia donde se moverá el cabezal.
+    */
+    Mover(dirección)
+}
+
+function haySiguienteFilaAl_(direcciónAmover){
+    /*
+     PROPÓSITO: Indica si hay sigueinte fila en dirección *direcciónAMover*.
+     PRECONDICIONES: Ninguna.
+     TIPO: Booleano.
+     PARÁMETROS:
+        * direcciónAmover - dirección: describe la dirección de la sigueinte fila.
+    */
+    return(hayLugarHaciaEl_(direcciónAmover))
+}
+
+procedure VaciarFilaDe_HaciaEl_(color, dirección) {
+    /*
+     PROPÓSITO: que quita todas las bolitas del color dado 
+        por el parámetro *color* en dirección *dirección*
+        de la fila actual.
+     PRECONDICIONES: 
+        
+     PARÁMETROS: *color* - color: color de las bolitas a sacar.
+    */
+    IniciarElRecorrido_(dirección)
+    SacarTodasLasDeColor_(color)
+    while (hayLugarHaciaEl_(dirección)) {
+        MoverAl_(dirección)
+        SacarTodasLasDeColor_(color)
+    }
+    
+}
+
+procedure IniciarElRecorrido_(dirección) {
+    /*
+     PROPÓSITO: Pociciona el cabezal en la esquina suroeste.
+     PRECONDICIONES: Ningua.
+    */
+    IrAlBorde(opuesto(dirección)) 
+}
+
+procedure SacarTodasLasDeColor_(colorASacar) {
+    /*
+     PROPÓSITO: quita todas bolitas del color *color* 
+        de la celda actual.
+     PRECONDICIONES: 
+        
+     PARÁMETROS: *color* - color: color de la bolita a sacar.
+    */
+    while (hayBolitas(colorASacar)) {
+        Sacar(colorASacar)
+    }
+}
+
+function hayLugarHaciaEl_(direcciónAmover) {
+    /*
+     PROPÓSITO: Indica si el cabezal puede moverse hacia la dirección *direcciónAMover*.
+     PRECONDICIONES: Ninguna.
+     TIPO: Booleano.
+     PARÁMETROS:
+        * direcciónAmover - dirección: describe la dirección de la siguiente celda.
+    */
+   return(puedeMover(direcciónAmover))
+}
