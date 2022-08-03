@@ -1,0 +1,132 @@
+//a. 
+program {
+    UnaDeCadaEnTodoElTablero()
+}
+
+procedure PintarTableroDe_(color){
+    /*
+    PROPÓSITO: coloca exactamente una bolita del color *color* en cada
+    celda del tablero.
+    PRECONDICIONES
+    PARÁMETROS:
+        * color: Color - color de la bolita a colocar.
+    OBSERVACIONES:
+        * Recorrido por filas - recorre cada fila del tablero poniendo 
+          una bolita de color *color*.
+    */
+    IniciarElRecorrido_(Sur)
+    PintarFilaDe_HaciaEl_(color, Este)
+    while (haySiguienteFilaAl_(Norte)){
+        MoverAl_(Norte)
+        PintarFilaDe_HaciaEl_(color, Este)
+    }
+} 
+
+
+procedure PintarFilaDe_HaciaEl_(color, dirección) {
+    /*
+     PROPÓSITO: que quita todas las bolitas del color dado 
+        por el parámetro *color* en dirección *dirección*
+        de la fila actual.
+     PRECONDICIONES: 
+        
+     PARÁMETROS: *color* - color: color de las bolitas a sacar.
+    */
+    IniciarElRecorrido_(opuesto(dirección))
+    PonerDeColor_(color)
+    while (hayLugarHaciaEl_(dirección)) {
+        MoverAl_(dirección)
+        PonerDeColor_(color)
+    }
+    
+}
+
+procedure IniciarElRecorrido_(dirección) {
+    /*
+     PROPÓSITO: Pociciona el cabezal en la esquina suroeste.
+     PRECONDICIONES: Ningua.
+    */
+    IrAlBorde_(dirección)
+}
+
+procedure IrAlBorde_(dirección) {
+    /*
+     PROPÓSITO: Lleva al cabezal al borde *dirección*.
+     PRECONDICIÓNES: Ninguna.
+     PARÁMETROS: 
+        *dirección* - dirección: dirección hacia 
+         donde debe moverce el cabezal.
+    */
+    
+    while (puedeMover(dirección)) {
+        Mover(dirección)
+    }
+}
+
+procedure PonerDeColor_(colorAPoner) {
+    /*
+     PROPÓSITO: pone una bolita de color *color* 
+        en la celda actual.
+     PRECONDICIONES: 
+        
+     PARÁMETROS: *color* - color: color de la bolita a sacar.
+    */
+    while (not hayBolitas(colorAPoner)) {
+        Poner(colorAPoner)
+    }
+}
+
+
+function haySiguienteFilaAl_(direcciónAmover){
+    /*
+     PROPÓSITO: Indica si hay sigueinte fila en dirección *direcciónAMover*.
+     PRECONDICIONES: Ninguna.
+     TIPO: Booleano.
+     PARÁMETROS:
+        * direcciónAmover - dirección: describe la dirección de la sigueinte fila.
+    */
+    return(hayLugarHaciaEl_(direcciónAmover))
+}
+
+procedure MoverAl_(dirección){
+    /*
+    PROPÓSITO: mueve el cabezal en dirección *dirección*. 
+    PRECONDICIONES: Debe haber almenos una celda en dirección *dirección*.
+    PARÁMETROS: *dirección* - dirección: dirección hacia donde se moverá el cabezal.
+    */
+    Mover(dirección)
+}
+
+function hayLugarHaciaEl_(direcciónAmover) {
+    /*
+     PROPÓSITO: Indica si el cabezal puede moverse hacia la dirección *direcciónAMover*.
+     PRECONDICIONES: Ninguna.
+     TIPO: Booleano.
+     PARÁMETROS:
+        * direcciónAmover - dirección: describe la dirección de la siguiente celda.
+    */
+   return(puedeMover(direcciónAmover))
+}
+
+
+
+//b. 
+procedure UnaDeCadaEnTodoElTablero() {
+    /*
+    PROPÓSITO: Coloca una bolita de cada color en cada celda del tablero.
+    */
+    
+    PintarTableroDe_(Rojo)
+    PintarTableroDe_(Azul)
+    PintarTableroDe_(Verde)
+    PintarTableroDe_(Negro)
+}
+    
+/*c. RellenarCon_EnAusenciaDe_EnElTablero(colorAPoner, colorAMirar) que coloca
+una bolita de color colorAPoner en cada celda del tablero en la que no haya al menos una
+bolita de color colorAMirar.
+d. CompletarHasta_De_EnElTablero(cantidad, color) que deja en cada celda del
+tablero exactamente tantas bolitas del color dado como la cantidad indicada por el parámetro cantidad. Note que puede que ya existan bolitas del color dado en algunas de las celdas, en
+cuyo caso. Realice el procedimiento sin hacer uso del comando Sacar ni ninguno de los
+procedimientos que implican Sacar.
+*/
