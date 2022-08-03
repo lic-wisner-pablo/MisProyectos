@@ -1,0 +1,17 @@
+program {
+    SacarTodasLasDeColor_(Rojo)
+}
+
+procedure SacarTodasLasDeColor_(color) {
+    /*
+     PROPÓSITO: quita todas las bolitas del color *color* de la celda actual.
+     PRECONDICIONES: Ninguna.
+     PARÁMETROS: 
+	*color* - color: color de las bolitas a sacar.
+     OBSERVACIÓN: 
+	* Es un recorrido sobre las bolitas, sacándolas.
+    */
+    while (hayBolitas(color)) {
+        Sacar(color)
+    }
+}
