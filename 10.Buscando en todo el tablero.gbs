@@ -1,0 +1,59 @@
+procedure IrHastaLaQueTengaUnaDeCada(){
+/*
+     PROPÓSITO: que quita todas las bolitas del color dado 
+        por el parámetro *color* en dirección *dirección*
+        de la fila actual.
+     PRECONDICIONES: 
+        
+     PARÁMETROS: *color* - color: color de las bolitas a sacar.
+    */
+    
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este, Norte)
+    while (not tieneDeCadaUnaAcá() && haySiguienteCeldaEnUnRecorridoAl_Y_(Este, Norte)) {
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(Este, Norte)
+    }
+}
+
+
+function haySiguienteCeldaEnUnRecorridoAl_Y_(dirPrincipal, dirSecundaria){
+    /*
+     PROPÓSITO: Indica si hay sigueinte fila en dirección *direcciónAMover*.
+     PRECONDICIONES: Ninguna.
+     TIPO: Booleano.
+     PARÁMETROS:
+        * direcciónAmover - dirección: describe la dirección de la sigueinte fila.
+    */
+    return(puedeMover(dirPrincipal) || puedeMover(dirSecundaria))
+}
+
+
+procedure IrAPrimeraCeldaEnUnRecorridoAl_Y_(dirPrincipal, dirSecundaria) {
+    /*
+     PROPÓSITO: Pociciona el cabezal en la esquina suroeste.
+     PRECONDICIONES: Ningua.
+    */
+    IrAlBorde(opuesto(dirPrincipal))
+    IrAlBorde(opuesto(dirSecundaria))
+}
+
+procedure IrASiguienteCeldaEnUnRecorridoAl_Y_(dirPrincipal, dirSecundaria){
+     if(puedeMover(dirPrincipal)) {
+        Mover(dirPrincipal)
+    } else{
+        IrAlBorde(opuesto(dirPrincipal))
+        Mover(dirSecundaria)
+    }
+}
+
+function tieneDeCadaUnaAcá() {
+    /*
+     PROPÓSITO: Indica si hay bolitas 
+        de todos los colores en la celda actual.
+     PRECONDICIÓN: Ninguna.
+     TIPO: Booleano.
+    
+    */
+    
+    return (hayBolitas(Rojo) && hayBolitas(Verde) && 
+            hayBolitas(Azul) && hayBolitas(Negro))
+}
