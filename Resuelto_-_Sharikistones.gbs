@@ -1,0 +1,254 @@
+function fichaAleatoria() {
+    /*
+        PROPOSITO: Describe la forma de ficha con la cual reponer un espacio vacío. 
+        PRECONDICIONES: La celda actal debe estar vacía.
+        TIPO: FormaDeFicha
+    */
+    return(
+            choose  Círculo     when        estáEnUnBorde() && cantidadDeFichas_Alrededor(Estrella) >= 2
+                                                                //hayAlMenos_ConFormaDeFicha_Alrededor(2,Estrella)
+                    Rombo       when        hay3FichasIgualesAlrededor(3)
+                                            //cantidadDeFichasIgualesAlrededor() == 3
+                    Estrella    when        cantidadDeElemento_Alrededor(Obstáculo) == 1
+                                            //hay_Elemento_Alrededor(1,Obstáculo)
+                    Triángulo   otherwise
+            )
+}
+
+function estáEnUnBorde() {
+    /*
+        PROPOSITO: Indica si la celda actual está en un borde.
+        PRECONDICIONES: Ninguna.
+        TIPO: Booleano
+    */    
+    return(not puedeMover(Norte) || not puedeMover(Sur) || not puedeMover(Este) || not puedeMover(Oeste))
+}
+
+function cantidadDeFichas_Alrededor(formaDeFicha) {
+    /*
+        PROPOSITO: Describe la cantidad de fichas de forma *formaDeFicha* alrededor de la celda actual.
+        PRECONDICIONES: Ninguna.
+        TIPO: Número
+        PARAMETROS: formaDeFicha: FormaDeFicha. La forma de la ficha a contar.
+    */
+    return( unoSi_CeroSino(puedeMoverAl_YHayFicha_(Norte,formaDeFicha)) +
+            unoSi_CeroSino(puedeMoverAl_YHayFicha_(Sur,formaDeFicha))   +
+            unoSi_CeroSino(puedeMoverAl_YHayFicha_(Este,formaDeFicha))  +
+            unoSi_CeroSino(puedeMoverAl_YHayFicha_(Oeste,formaDeFicha))
+            )
+}
+
+function puedeMoverAl_YHayFicha_(dirección,formaDeFicha) {
+    /*
+        PROPOSITO: Indica si se puede mover al *dirección* y si hay una ficha con forma *formaDeFicha* en dicha dirección.
+        PRECONDICIONES: Ninguna.
+        TIPO: Booleano
+        PARAMETROS: formaDeFicha: FormaDeFicha. La forma de la ficha verificar si existe.
+                    dirección: Dirección. La dirección a la cual verificar si se puede mover y si existe la ficha. 
+    */
+    return( puedeMover(dirección) && hayFicha_Al_(formaDeFicha,dirección))    
+}
+
+function hayFicha_Al_(formaDeFicha,dirección) {
+    /*
+        PROPOSITO: Indica si hay una ficha con forma *formaDeFicha* en dirección *dirección*.
+        PRECONDICIONES: Hay una celda en dirección *dirección*.
+        TIPO: Booleano
+        PARAMETROS: formaDeFicha: FormaDeFicha. La forma de la ficha verificar si existe.
+                    dirección: Dirección. La dirección a la cual verificar si existe la ficha. 
+    */
+    Mover(dirección)
+    return(elementoAca() == Ficha && fichaAca() == formaDeFicha)    
+}
+
+function hay_FichasIgualesAlrededor(cantidad) { 
+    /*
+        PROPOSITO: Indica si hay *cantidad* de fichas iguales alrededor.
+        PRECONDICIONES: Ninguna.
+        TIPO: Booleano
+        PARAMETROS: cantidad: Numero. La cantidad de fichas a verificar si hay alrededor.
+    */
+    return( cantidadDeFichas_Alrededor(Estrella)    == cantidad   ||
+            cantidadDeFichas_Alrededor(Rombo)       == cantidad   ||
+            cantidadDeFichas_Alrededor(Círculo)     == cantidad   ||
+            cantidadDeFichas_Alrededor(Triángulo)   == cantidad
+            )
+}
+
+function cantidadDeElemento_Alrededor(tipoDeElemento) {
+    /*
+        PROPOSITO: Describe la cantidad de elemento del tipo *tipoDeElemento* alrededor de la celda actual.
+        PRECONDICIONES: Ninguna.
+        TIPO: Número
+        PARAMETROS: tipoDeElemento: TipoDeElemento. El tipo de elemento a contar.
+    */
+    return( unoSi_CeroSino(puedeMoverAl_YHayElemento_(Norte,tipoDeElemento))+
+            unoSi_CeroSino(puedeMoverAl_YHayElemento_(Sur,tipoDeElemento))  +
+            unoSi_CeroSino(puedeMoverAl_YHayElemento_(Este,tipoDeElemento)) +
+            unoSi_CeroSino(puedeMoverAl_YHayElemento_(Oeste,tipoDeElemento))
+            )
+}
+
+function puedeMoverAl_YHayElemento_(tipoDeElemento) {
+    /*
+        PROPOSITO: Indica si se puede mover al *dirección* y si hay un elemento de tipo *tipoDeElemento* en dicha dirección.
+        PRECONDICIONES: Ninguna.
+        TIPO: Booleano
+        PARAMETROS: tipoDeElemento: TipoDeElemento. El tipo de elemento a verificar si existe.
+                    dirección: Dirección. La dirección a la cual verificar si se puede mover y si existe el elemento. 
+    */
+    return( puedeMover(dirección) && hayElemento_Al_(tipoDeElemento,dirección))    
+}    
+
+
+function hayElemento_Al_(tipoDeElemento, dirección) {
+    /*
+        PROPOSITO: Indica si hay un elemento de tipo *tipoDeElemento* en dirección *dirección*.
+        PRECONDICIONES: Hay una celda en dirección *dirección*.
+        TIPO: Booleano
+        PARAMETROS: tipoDeElemento: TipoDeElemento. El tipo de elemento a verificar si existe.
+                    dirección: Dirección. La dirección a la cual verificar si existe el elemento. 
+    */
+    Mover(dirección)
+    return(elementoAca() == tipoDeElemento)  
+    
+}
+
+function cantidadDe_EnGrilla(tipoDeElemento) {
+    /*
+        PROPOSITO:
+        PRECONDICIONES:
+        TIPO:
+        PARAMETROS:
+        OBSERVACIONES:
+    */
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    cantidadDeElementoVistos := unoSi_CeroSino(elementoAca() == tipoDeElemento)
+    while (haySiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)) {
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)
+        cantidadDeElementoVistos := cantidadDeElementoVistos + unoSi_CeroSino(elementoAca() == tipoDeElemento)
+    }
+    return(cantidadDeElementoVistos)
+}
+
+procedure ReponerEspaciosLibresEnGrilla() {
+    /*
+        PROPOSITO:
+        PRECONDICIONES:
+        PARAMETROS:
+        OBSERVACIONES:
+    */
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    ReponerEspacioLibreSiHay()
+    while (haySiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)) {
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)
+        ReponerEspacioLibreSiHay()
+    }
+}
+
+procedure ReponerEspacioLibreSiHay() {
+    /*
+        PROPOSITO:
+        PRECONDICIONES:
+        PARAMETROS:
+        OBSERVACIONES:
+    */
+    if(elementoAca()==Libre){
+        PonerFicha_(fichaAleatoria())
+    }
+}
+
+function estadoDelJuego() {
+    /*
+        PROPOSITO:
+        PRECONDICIONES:
+        TIPO:
+        PARAMETROS:
+        OBSERVACIONES:
+    */
+    return(EstadoDelJuego(
+                nivel <- cantidadDe_EnGrilla(Obstáculo),
+                hayMásTriángulosQueCírculos <- hayMasDe_QueDe_(Triangulo,Círculo),
+                quedanRombos <- cantidadDeFicha_EnGrilla(Rombo)>=1,                // Booleano
+                fichaDeLaCualHayMás <- fichaDeLaCualHayMasEnGrilla()) 
+           )
+            
+}
+
+function fichaDeLaCualHayMasEnGrilla() {
+    /*
+        PROPOSITO:
+        PRECONDICIONES:
+        TIPO:
+        PARAMETROS:
+        OBSERVACIONES:
+    */
+    return(choose   Triángulo   when    (hayMasDe_QueDe__Y_(Triángulo,Círculo,Estrella,Rombo))
+                    Círculo     when    (hayMasDe_QueDe__Y_(Círculo,Triángulo,Estrella,Rombo))
+                    Estrella    when    (hayMasDe_QueDe__Y_(Estrella,Triángulo,Círculo,Rombo))
+                    Rombo       otherwise 
+    )
+}
+
+function hayMasDe_QueDe__Y_(formaFicha1, formaFicha2, formaFicha3, formaFicha4) {
+    /*
+        PROPOSITO:
+        PRECONDICIONES:
+        TIPO:
+        PARAMETROS:
+        OBSERVACIONES:
+    */
+    return( hayMasDe_QueDe_(formaFicha1, formaFicha2) && 
+            hayMasDe_QueDe_(formaFicha1, formaFicha3) &&
+            hayMasDe_QueDe_(formaFicha1, formaFicha4)
+            )
+}
+
+function hayMasDe_QueDe_(formaFicha1, formaFicha2) {
+    /*
+        PROPOSITO:
+        PRECONDICIONES:
+        TIPO:
+        PARAMETROS:
+        OBSERVACIONES:
+    */
+    return(cantidadDeFicha_EnGrilla(formaFicha1) > cantidadDeFicha_EnGrilla(formaFicha2))
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
