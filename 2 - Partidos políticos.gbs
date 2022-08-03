@@ -1,0 +1,70 @@
+type PartidoPolítico is variant {
+    case DemocraciaPorLaVerdad  {}
+    case UnidosPorLaRepública   {}
+    case LiberalesPorLaLibertad {}
+    case IzquierdaDeLosObreros  {}
+    
+} 
+
+
+function cantidadDeVotosDe_(unPartido) {
+    /*
+     PROPÓSITO: Indica la cantidad de votos que recibió un partido.
+     PARÁMETROS
+     * unPartido: PartidoPolítico - El partido político del cual saber
+       su cantidad de votos.
+     TIPO: Número
+     PRECONDICIÓN: Ninguna
+    */ 
+    
+    return (choose
+        1500 when (unPartido == DemocraciaPorLaVerdad)
+        600  when (unPartido == UnidosPorLaRepública)
+        200  when (unPartido == LiberalesPorLaLibertad)
+        50  otherwise     
+                   )
+}
+
+
+
+
+//a.
+
+function tieneMásVotantes_Que_(primerPartido, segundoPartido) {
+	return( cantidadDeVotosDe_(primerPartido) > 
+	        cantidadDeVotosDe_(segundoPartido)
+	        )
+}
+
+program {
+    return(habráBallotage())
+}
+
+//b.
+
+function elQueTieneMásVotos(){
+    /*
+
+    */
+    return (
+
+        choose 
+            DemocraciaPorLaVerdad   when  ( tieneMásVotantes_Que_(DemocraciaPorLaVerdad, UnidosPorLaRepública)
+                                        &&   tieneMásVotantes_Que_(DemocraciaPorLaVerdad, LiberalesPorLaLibertad)
+                                        &&   tieneMásVotantes_Que_(DemocraciaPorLaVerdad, IzquierdaDeLosObreros))
+
+            UnidosPorLaRepública    when  ( tieneMásVotantes_Que_(UnidosPorLaRepública, DemocraciaPorLaVerdad)
+                                        &&   tieneMásVotantes_Que_(UnidosPorLaRepública, LiberalesPorLaLibertad)
+                                        &&   tieneMásVotantes_Que_(UnidosPorLaRepública, IzquierdaDeLosObreros))
+
+            LiberalesPorLaLibertad   when ( tieneMásVotantes_Que_(DemocraciaPorLaVerdad, UnidosPorLaRepública)
+                                        &&   tieneMásVotantes_Que_(LiberalesPorLaLibertad, LiberalesPorLaLibertad)
+                                        &&   tieneMásVotantes_Que_(LiberalesPorLaLibertad, DemocraciaPorLaVerdad))
+
+            IzquierdaDeLosObreros   otherwise
+    )
+
+}
+
+//c.
+
