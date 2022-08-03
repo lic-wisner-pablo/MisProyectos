@@ -1,0 +1,75 @@
+// VARIANTE (Dato enumerativo)
+type PaloDeCartaEspañola is variant {
+    case Oros    {}
+    case Bastos  {}
+    case Copas   {}
+    case Espadas {}
+}
+
+//REGISTRO (Datos con estructura)
+type CastaEspañola is record {
+    field palo          // PaloDeCartaEspañola
+    field número        // Número
+}
+
+//a.
+
+function anchoDeEspadas() {
+    return (CastaEspañola(palo <- Espadas, número <- 1))
+}
+
+//b.
+
+function anchoDeBastos() {
+    return (CastaEspañola(palo <- Bastos, número <- 1))
+}
+
+//c.
+
+function laCarta_de_(unPalo, unNúmero) {
+    return (CastaEspañola(palo <- unPalo, número <- unNúmero))
+}
+
+//d.
+
+function esUnAncho_(unaCarta) {
+    return (choose
+                True when (unaCarta == CastaEspañola(palo <- Oros, número <- 1))
+                True when (unaCarta == CastaEspañola(palo <- Bastos, número <- 1))
+                True when (unaCarta == CastaEspañola(palo <- Copas, número <- 1))
+                True when (unaCarta == CastaEspañola(palo <- Espadas, número <- 1))
+                False otherwise
+                )
+}
+
+//e.
+
+function esFigura_(unaCarta) {
+    return (choose
+                True when (unaCarta == CastaEspañola(palo <- Oros, número <- 10))
+                True when (unaCarta == CastaEspañola(palo <- Oros, número <- 11))
+                True when (unaCarta == CastaEspañola(palo <- Oros, número <- 12))
+                True when (unaCarta == CastaEspañola(palo <- Bastos, número <- 10))
+                True when (unaCarta == CastaEspañola(palo <- Bastos, número <- 11))
+                True when (unaCarta == CastaEspañola(palo <- Bastos, número <- 12))
+                True when (unaCarta == CastaEspañola(palo <- Copas, número <- 10))
+                True when (unaCarta == CastaEspañola(palo <- Copas, número <- 11))
+                True when (unaCarta == CastaEspañola(palo <- Copas, número <- 12))
+                True when (unaCarta == CastaEspañola(palo <- Espadas, número <- 10))
+                True when (unaCarta == CastaEspañola(palo <- Espadas, número <- 11))
+                True when (unaCarta == CastaEspañola(palo <- Espadas, número <- 12))
+                False otherwise
+                )
+}
+
+//f.
+
+function esDeOro_(unaCarta) {
+    return (choose
+                True when (unaCarta == Oros)
+                False otherwise
+                )
+}
+program {
+    return (esFigura_(laCarta_de_(Copas, 10)))
+}
