@@ -1,0 +1,180 @@
+type Celda is record {
+  /*
+  PROPÓSITO: Modelar una celda del tablero
+  INV.REP.: Los números son todos >=0
+  */
+  field cantidadDeAzules // tipo: Número
+  field cantidadDeNegras // tipo: Número
+  field cantidadDeRojas // tipo: Número
+  field cantidadDeVerdes // tipo: Número
+}
+
+function celdaActual() {
+  /*
+  Prop: Describir la celda actual.
+  Prec: Los números son todos mayores o iguales a cero.
+        Ninguna.
+  */
+}
+
+
+procedure CosaRara(cosa) {
+  /*
+  Prop......|||
+  Prec:
+  * hay 3 celdas al Este de la actual Sí!
+  * El tablero está vacío
+  * *cosa* es mayor a 5
+  */
+}
+
+program {
+    Poner_DeColor_
+    return (laCarta_de_(50, Bastos))
+}
+
+function anchoDeEspadas() {
+    /**/
+    return (Carta(número <- 1, palo <- Espadas))
+}
+
+function díaSiguiente_(día) {
+    /*
+    Prop: Describe el día siguiente al dado.
+    Prec: Ninguna.
+    Param: día DíaDeLaSemana
+    Tipo: DíaDeLaSemana
+    */
+    return (
+        choose Lunes         when (día == Domingo)
+            Martes           when (día == Lunes)
+            Miércoles        when (día == Martes)
+            Jueves           when (día == Miércoles)
+            Viernes          when (día == Jueves)
+            Sábado           when (día == Viernes)
+            Domingo otherwise  // (día == Sábado)
+    )
+}
+
+type DíaDeLaSemana is variant {
+    /*
+    Propósito: Modelar un día de la semana.
+    */
+    case Lunes {}
+    case Martes {}
+    case Miércoles {}
+    case Jueves {}
+    case Viernes {}
+    case Sábado {}
+    case Domingo {}
+}
+
+
+
+// laCarta_de_ que dado un número y un palo que describe la carta con dicho número y dicho palo..
+
+function laCarta_de_(unNúmero, unPalo) {
+  /*
+  Prop: Describir la carta *unNúmero* de *unPalo*.
+  Prec: * El número dado debe estar entre 1 y 7 o entre 10 y 12.
+  Param:
+  * unNúmero: Número.
+  * unPalo: PaloDeCarta.
+  Tipo: Carta
+  */
+  return (
+    Carta(número <- unNúmero,
+          palo <- unPalo)
+  )
+}
+
+Poner_DeColor_(5, siguiente(colorMágico()))
+
+Poner_DeColor_(cant, color) {
+  repeat(cant) {
+    Poner(color)
+  }
+}
+
+function valorParaEnvidoDe_(carta) {
+  /*
+  Prop: Describe la cantidad de puntos que aporta la carta dada al envido en el Truco.
+  Prec: Ninguna.
+  Param: carta Carta
+  Tipo: Número.
+  */
+  return (
+    choose  0             when (esFigura_(carta))
+            número(carta) otherwise
+  )
+}
+
+/*que describa el número que aporta la carta dada en el canto del envido. El número se corresponde al número de la carta, si la misma no es figura, y cero, si fuera figura. Atención: Sí ya sabe jugar al truco, tenga en cuenta que se está preguntando el valor que aportaría una única carta, no una jugada de multiples cartas.*/
+
+type Carta is record {
+  /* Propósito: Modelar una carta española
+  Inv. Rep.: El número está entre 1 y 7 o entre 10 y 12 */
+  field número // Número
+  field palo // PaloDeCarta
+}
+
+function número(carta) {
+  // Tipo: Número
+}
+
+5 = número(Carta(número <- 5, ...))
+
+type Registro is record {
+  field campo1 // Tipo1
+  field campo2 // Tipo2
+  field campo3 // Tipo3
+}
+
+// Esto lo hace Gobstones automáticamente (no hay que hacerlo)
+Registro(campo1 <- ..., campo2 <- ..., campo3 <- ...)
+pseudoFunction Registro(valor1, valor2, valor3) {
+  /*
+  Prop: Describir un nuevo registro con "campo1" igual a *valor1*, ...
+  Prec: lo que diga el Inv.Rep.
+  Param:
+  * valor1 Tipo1
+  * valor2 Tipo2
+  * valor3 Tipo3
+  Tipo: Registro
+  */
+}
+
+pseudoFunction Carta(número, palo) {
+  /*
+  Prop: Describir una nueva carta con "número" igual a *número*, ...
+  Prec: *número* está entre ...
+  Param:
+  * número: Número.
+  * palo: PaloDeCarta.
+  Tipo: Carta
+  */
+}
+
+function campo1(registro) {
+  /*
+  Prop: Describe el valor del campo "campo1" del registro *registro*
+  Prec: Ninguna.
+  Param: registro Registro
+  Tipo: Tipo1
+  */
+}
+
+type PaloDeCarta is variant {
+  // Propósito: Modelar un palo de carta española
+  case Espadas {}
+  case Bastos {}
+  case Oros {}
+  case Copas {}
+}
+
+
+
+
+
+
+
