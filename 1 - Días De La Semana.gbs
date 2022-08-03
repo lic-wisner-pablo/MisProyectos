@@ -1,0 +1,45 @@
+//1.
+
+type DíaDeLaSemana is variant {
+    case Domingo   {}
+    case Lunes     {}
+    case Martes    {}
+    case Miércoles {}
+    case Jueves    {}
+    case Viernes   {}
+    case Sábado    {}
+} 
+
+//a.
+
+function díaSiguiente_(unDía) {
+    return (choose
+        Lunes     when (unDía == Domingo)
+        Martes    when (unDía == Lunes)
+        Miércoles when (unDía == Martes)
+        Jueves    when (unDía == Miércoles)
+        Viernes   when (unDía == Jueves)
+        Sábado    when (unDía == Viernes)
+        Domingo   otherwise     
+                   )
+}
+
+//b.
+
+function díaPrevio_(unDía) {
+    return (choose
+        Domingo   when (unDía == Lunes)
+        Lunes     when (unDía == Martes)
+        Martes    when (unDía == Miércoles)
+        Miércoles when (unDía == Jueves)
+        Jueves    when (unDía == Viernes)
+        Viernes   when (unDía == Jueves)
+        Sábado    otherwise     
+                   )
+}
+
+//c.
+
+function esDíaDeFinDeSemana_(unDía) {
+    return (unDía == Sábado || unDía == Domingo)
+}
