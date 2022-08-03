@@ -1,0 +1,44 @@
+procedure VaciarFilaDe_(color) {
+    /*
+     PROPÓSITO: que quita todas las bolitas del color dado 
+        por el parámetro *color* de la fila actual.
+     PRECONDICIONES: 
+        
+     PARÁMETROS: *color* - color: color de las bolitas a sacar.
+    */
+    IrAlInicioDelRecorrido()
+    while (hayLugarHaciaElEste()) {
+        SacarTodasLasColorDe_(color)
+        Mover(Este)
+    }
+    SacarTodasLasColorDe_(color)
+}
+
+procedure IrAlInicioDelRecorrido() {
+    /*
+     PROPÓSITO: Pociciona el cabezal en la esquina sur-oeste.
+     PRECONDICIONES: Ningua.
+    */
+    IrAlBorde(opuesto(Este)) 
+}
+
+procedure SacarTodasLasDeColorDe_(colorASacar) {
+    /*
+     PROPÓSITO:  quita todas bolitas del color *color* 
+        de la fila actual si corresponde.
+     PRECONDICIONES: 
+        
+     PARÁMETROS: *color* - color: color de la bolita a sacar.
+    */
+    while (hayBolitas(colorASacar)) {
+        Sacar(colorASacar)
+    }
+}
+
+function hayLugarHaciaElEste() {
+    /*
+     PROPÓSITO: Indica si el cabezal puede moverse hacia el Norte.
+     PRECONDICIONES: Ninguna.
+    */
+   return(puedeMover(Este))
+}
