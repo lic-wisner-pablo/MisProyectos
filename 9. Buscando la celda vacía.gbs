@@ -1,0 +1,38 @@
+program{
+    IrALaSiguienteVacíaHacia_(Este)
+}
+
+procedure IrALaSiguienteVacíaHacia_(dirección){
+    MoverAl_(dirección)
+    while (hayLugarHaciaEl_(dirección) && not esCeldaBacía()){
+        MoverAl_(dirección)
+    }
+}
+
+function esCeldaBacía(){
+    return(not esCeldaConBolitas())
+}
+
+function esCeldaConBolitas(){
+    return((hayBolitas(Rojo)) || (hayBolitas(Negro)) || (hayBolitas(Verde)) || (hayBolitas(Azul)))
+}
+
+function hayLugarHaciaEl_(direcciónAmover) {
+    /*
+     PROPÓSITO: Indica si el cabezal puede moverse hacia la dirección *direcciónAMover*.
+     PRECONDICIONES: Ninguna.
+     TIPO: Booleano.
+     PARÁMETROS:
+        * direcciónAmover - dirección: describe la dirección de la siguiente celda.
+    */
+   return(puedeMover(direcciónAmover))
+}
+
+procedure MoverAl_(dirección){
+    /*
+    PROPÓSITO: mueve el cabezal en dirección *dirección*. 
+    PRECONDICIONES: Debe haber almenos una celda en dirección *dirección*.
+    PARÁMETROS: *dirección* - dirección: dirección hacia donde se moverá el cabezal.
+    */
+    Mover(dirección)
+}
